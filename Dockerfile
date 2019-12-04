@@ -7,3 +7,4 @@ RUN pecl install yaf yaconf event redis mongodb && docker-php-ext-enable yaf yac
 RUN mkdir -p /data/php/log/ && chown www-data:www-data /data/php/log && mkdir -p /data/php/run && chown www-data:www-data /data/php/run 
 COPY ./source/docker.conf /usr/local/etc/php-fpm.d/docker.conf
 RUN wget https://github.com/tideways/php-xhprof-extension/archive/v4.1.7.zip && unzip v4.1.7.zip && cd php-xhprof-extension-4.1.7 && phpize && ./configure && make && make install && docker-php-ext-enable tideways
+RUN php -r "copy('https://install.phpcomposer.com/installer', 'composer-setup.php');" && php composer-setup.php && mv composer.phar /usr/bin/composer && rm -f composer-setup.php
